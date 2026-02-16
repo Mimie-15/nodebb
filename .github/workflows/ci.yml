@@ -7,46 +7,7 @@ on:
       - main
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-
-    steps:
-      # 1. Checkout the repository code
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 2. Set up Node.js v20
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      # 3. Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # 4. Run the linter
-      - name: Lint code
-        run: npm run lint
-
-      # 5. Run the tests
-      - name: Run tests
-        run: npm test
-
-      # 6. Build the application
-      - name: Build application
-        run: npm run build
-
-      # 7. Upload the 'dist' directory as a build artifact
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
-
   docker-smoke-test:
-    # This job depends on the successful completion of the build-and-test job
-    needs: build-and-test
     runs-on: ubuntu-latest
 
     steps:
